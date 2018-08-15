@@ -26,35 +26,45 @@ public class Teste {
         contaC.setSaldo(0);
 
         ThreadW threadW = new ThreadW("Transação W");
-        threadW.setUtilizandoContaA(true);
-        threadW.setUtilizandoContaB(true);
-        threadW.setUtilizandoContaC(false);
+        try {
+            threadW.sleep(300);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Teste.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         ThreadX threadX = new ThreadX("Transação X");
-        threadW.setUtilizandoContaA(true);
-        threadW.setUtilizandoContaB(false);
-        threadW.setUtilizandoContaC(false);
+        try {
+            threadX.sleep(300);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Teste.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         ThreadY threadY = new ThreadY("Transação Y");
-        threadW.setUtilizandoContaA(false);
-        threadW.setUtilizandoContaB(true);
-        threadW.setUtilizandoContaC(false);
+        try {
+            threadY.sleep(300);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Teste.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         ThreadZ threadZ = new ThreadZ("Transação Z");
-        threadW.setUtilizandoContaA(false);
-        threadW.setUtilizandoContaB(true);
-        threadW.setUtilizandoContaC(true);
+        try {
+            threadZ.sleep(300);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Teste.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         ThreadP threadP = new ThreadP("Transação P");
-        threadW.setUtilizandoContaA(false);
-        threadW.setUtilizandoContaB(false);
-        threadW.setUtilizandoContaC(true);
+        try {
+            threadP.sleep(300);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Teste.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         while (threadW.isAlive()) {
             try {
-                threadX.sleep(300);
-                threadY.sleep(300);
-                threadZ.sleep(300);
+                threadX.wait();
+                threadY.wait();
+                threadZ.wait();
             } catch (InterruptedException ex) {
                 Logger.getLogger(Teste.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -62,7 +72,7 @@ public class Teste {
 
         while (threadX.isAlive()) {
             try {
-                threadW.sleep(300);
+                threadW.wait();
             } catch (InterruptedException ex) {
                 Logger.getLogger(Teste.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -70,8 +80,8 @@ public class Teste {
 
         while (threadY.isAlive()) {
             try {
-                threadW.sleep(300);
-                threadZ.sleep(300);
+                threadW.wait();
+                threadZ.wait();
             } catch (InterruptedException ex) {
                 Logger.getLogger(Teste.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -79,9 +89,9 @@ public class Teste {
 
         while (threadZ.isAlive()) {
             try {
-                threadW.sleep(300);
-                threadY.sleep(300);
-                threadP.sleep(300);
+                threadW.wait();
+                threadY.wait();
+                threadP.wait();
             } catch (InterruptedException ex) {
                 Logger.getLogger(Teste.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -89,7 +99,7 @@ public class Teste {
 
         while (threadP.isAlive()) {
             try {
-                threadZ.sleep(300);
+                threadZ.wait();
             } catch (InterruptedException ex) {
                 Logger.getLogger(Teste.class.getName()).log(Level.SEVERE, null, ex);
             }

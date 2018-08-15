@@ -5,8 +5,16 @@
  */
 package pack;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import static pack.Ban.con;
+import static pack.Ban.stmt;
 
 /**
  *
@@ -49,18 +57,14 @@ public class ThreadP extends Thread{
     }
     
     public void run(){
-        this.utilizandoContaA=true;
-        
-        
-        for (int i = 0; i < 6; i++) {
-            System.out.println(nome+" executando contador "+i);
-            try {
-                Thread.sleep(1100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            
-            System.out.println(nome +" terminou a execução");
+        Ban bp = new Ban();
+        bp.conexao();
+        try {
+            bp.depositar("C", "250");
+            System.out.println("\n Thread P executando\n");
+        } catch (SQLException ex) {
+            Logger.getLogger(ThreadP.class.getName()).log(Level.SEVERE, null, ex);
         }
+        bp.desconectarBanco();
     }
 }

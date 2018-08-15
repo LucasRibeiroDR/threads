@@ -5,6 +5,7 @@
  */
 package pack;
 
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -48,16 +49,19 @@ public class ThreadW extends Thread{
     }
     
     public void run(){
-        for (int i = 0; i < 6; i++) {
-            System.out.println(nome+" executando contador "+i);
-            try {
-                Thread.sleep(900);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            
-            
-            System.out.println(nome +" terminou a execução");
+        
+        Ban bw = new Ban();
+        Ban bw1 = new Ban();
+        bw.conexao();
+        bw1.conexao();
+        try {
+            bw.depositar("A", "-200");
+            bw1.depositar("B", "200");
+            System.out.println("\n Thread W executando\n");
+        } catch (SQLException ex) {
+            Logger.getLogger(ThreadP.class.getName()).log(Level.SEVERE, null, ex);
         }
+        bw.desconectarBanco();
+        bw1.desconectarBanco();
     }
 }
